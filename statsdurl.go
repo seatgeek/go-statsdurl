@@ -23,7 +23,7 @@ func ConnectToURL(s string) (c *statsd.StatsdClient, err error) {
 
 	if len(statsdUrl.Path) > 1 {
 		prefix = strings.TrimPrefix(statsdUrl.Path, "/")
-		prefix = fmt.Sprintf("/%s", prefix)
+		prefix = fmt.Sprintf("/%v", prefix)
 	}
 
 	c = statsd.NewStatsdClient(statsdUrl.Host, prefix)
