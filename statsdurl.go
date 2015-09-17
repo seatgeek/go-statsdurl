@@ -8,7 +8,7 @@ import (
 )
 
 func Connect(prefix string) (*statsd.StatsdClient, error) {
-	return ConnectToURL(os.Getenv("STATSD_URL"))
+	return ConnectToURL(os.Getenv("STATSD_URL"), prefix)
 }
 
 func ConnectToURL(s string, prefix string) (c *statsd.StatsdClient, err error) {
