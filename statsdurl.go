@@ -15,7 +15,7 @@ func ConnectToURL(s string, prefix string) (c *statsd.StatsdClient, err error) {
 	statsdUrl, err := url.Parse(s)
 
 	if err != nil {
-		return statsdUrl, err
+		return nil, err
 	}
 
 	c = statsd.NewStatsdClient(statsdUrl.Host, prefix)
