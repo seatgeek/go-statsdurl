@@ -1,29 +1,21 @@
 package statsdurl
 
 import (
-	"os"
-	"fmt"
 	"net/url"
-	"strings"
+	"os"
+
 	"github.com/quipo/statsd"
 )
 
-func Connect() (*statsd.StatsdClient, error) {
+func Connect(prefix string) (*statsd.StatsdClient, error) {
 	return ConnectToURL(os.Getenv("STATSD_URL"))
 }
 
-func ConnectToURL(s string) (c *statsd.StatsdClient, err error) {
+func ConnectToURL(s string, prefix string) (c *statsd.StatsdClient, err error) {
 	statsdUrl, err := url.Parse(s)
 
 	if err != nil {
-		return
-	}
-
-	prefix := ""
-
-	if len(statsdUrl.Path) > 1 {
-		prefix = strings.TrimPrefix(statsdUrl.Path, "/")
-		prefix = fmt.Sprintf("/%v", prefix)
+		return statsdUrl, err
 	}
 
 	c = statsd.NewStatsdClient(statsdUrl.Host, prefix)
